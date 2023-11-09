@@ -11,8 +11,11 @@
 
 #define MAXPENDING 200    // Maximum outstanding connection requests - possibly unlimited
 #define PRIORITIES 16
+#define THREAD_POOL_SIZE 5 // CPU cores + 1
 
+pthread_cond_t taskReady = PTHREAD_COND_INITIALIZER;
 pthread_mutex_t queueMutex = PTHREAD_MUTEX_INITIALIZER;
+pthread_t threadPool[THREAD_POOL_SIZE];
 
 typedef struct ThreadArgs { // Wrapping the client socket in a structure to ensure correct type (void pointer)
     int clntSock;
@@ -23,6 +26,7 @@ typedef struct {
     uint64_t start;
     uint64_t end;
     uint8_t priority;
+    int clntSock;
 } Request;
 
 typedef struct Node {
@@ -95,13 +99,30 @@ Request dequeue(){
     
 }
 
+void *processTasks(void *threadArgs){
+    while(1){
+        pthread_mutex_lock(&queueMutex);
+        Request request;
+        request.priority = 0;
+        while(request.priority == 0){
+            request = dequeue();
+            if(request.priority == 0){
+                pthread_cond_wait(&taskReady, &queueMutex);
+            }
+        }
+        pthread_mutex_unlock(&queueMutex);
+        uint64_t answer = reverse_hash(request.hash, request.start, request.end);
+        answer = htobe64(answer);
+        write(request.clntSock, &answer, sizeof(answer));
+        close(request.clntSock);
+    }
+    return NULL;
+   
+}
+
 void *ThreadMain(void *threadArgs){
     int clntSock = ((ThreadArgs *) threadArgs) -> clntSock; // type casting 
     free(threadArgs);
-
-    // Print the thread ID
-
-    // printf("Handling client on thread %ld\n", pthread_self());
     
     uint8_t hash[32];
     uint64_t start;
@@ -121,32 +142,12 @@ void *ThreadMain(void *threadArgs){
     request.start = start;
     request.end = end;
     request.priority = p;
+    request.clntSock = clntSock;
     enqueue(request);
-    Request newRequest = dequeue();
+    pthread_cond_signal(&taskReady);
 
-
-    uint64_t answer = reverse_hash(newRequest.hash, newRequest.start, newRequest.end);
-
-    answer = htobe64(answer);
-    write(clntSock, &answer, sizeof(answer));
-
-
-        // puts("Here is start and end :\n");
-        // printf("%llu", (unsigned long long) (start));
-        // puts("\n");
-        // printf("%llu", (unsigned long long) (end));
-        // puts("\n");
-        // puts("before reverse_hash");
-        // This is where you would put your reverse hashing logic
-        // printf("Answer: ");
-        // printf("%lu", answer);
-
-    close(clntSock);
     return NULL; //if we want to we can use the exit code to deliver a message to a parent
-    
 }
-
-
 
 int main(int argc, char *argv[]) {
 
@@ -197,6 +198,13 @@ int main(int argc, char *argv[]) {
     // Initializing priority que
     for(int i = 0; i < PRIORITIES; i++)
         priorityQueue[i] = NULL;
+
+    for (int i = 0; i < THREAD_POOL_SIZE; i++) {
+        if (pthread_create(&threadPool[i], NULL, processTasks, NULL) != 0) {
+            perror("pthread_create() failed");
+            exit(1);
+        }
+    }
 
     while (1) {   // Run forever
         struct sockaddr_in clntAddr;     // Client address
