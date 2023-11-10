@@ -83,20 +83,25 @@ Request dequeue(){
     Request request;
     pthread_mutex_lock(&queueMutex);
 
-    for(int i = 15; i >= 0; i--){
+    int i;
+    for(i = 15; i >= 0; i--){
         if(priorityQueue[i] != NULL){
-           Node* head = priorityQueue[i];
-           request = head -> data;
-           priorityQueue[i] = head -> next;
-           free(head);
-           pthread_mutex_unlock(&queueMutex);  
-           return request;
+           break;
         }
     }
+
+    if(i < 0){ // No requests in the queue
+        pthread_mutex_unlock(&queueMutex);  
+        request.priority = 0;
+        return request;
+    }
+
+    Node* head = priorityQueue[i];
+    request = head -> data;
+    priorityQueue[i] = head -> next;
+    free(head);
     pthread_mutex_unlock(&queueMutex);  
-    request.priority = 0;
     return request;
-    
 }
 
 void *processTasks(void *threadArgs){
