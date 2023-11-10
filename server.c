@@ -101,6 +101,7 @@ Request dequeue(){
 
 void *processTasks(void *threadArgs){
     while(1){
+        printf("process task\n");
         pthread_mutex_lock(&queueMutex);
         Request request;
         request.priority = 0;
@@ -110,6 +111,7 @@ void *processTasks(void *threadArgs){
                 pthread_cond_wait(&taskReady, &queueMutex);
             }
         }
+        printf("HELLO?\n");
         pthread_mutex_unlock(&queueMutex);
         uint64_t answer = reverse_hash(request.hash, request.start, request.end);
         answer = htobe64(answer);
@@ -136,7 +138,6 @@ void *ThreadMain(void *threadArgs){
     
     end = be64toh(end);
     start = be64toh(start);
-    
     Request request;
     memcpy(request.hash, hash, sizeof(hash));
     request.start = start;
@@ -145,11 +146,11 @@ void *ThreadMain(void *threadArgs){
     request.clntSock = clntSock;
     enqueue(request);
     pthread_cond_signal(&taskReady);
-
     return NULL; //if we want to we can use the exit code to deliver a message to a parent
 }
 
 int main(int argc, char *argv[]) {
+
 
     if (argc != 2) {
         fprintf(stderr, "Usage:  %s <Server Port>\n", argv[0]);
@@ -218,7 +219,7 @@ int main(int argc, char *argv[]) {
             continue;
         }
             
-        //printf("Accepted connection from client.\n");
+        printf("Accepted connection from client.\n");
 
         ThreadArgs *threadArgs = (ThreadArgs *) malloc(sizeof(ThreadArgs));
 		threadArgs->clntSock = clntSock;
@@ -231,7 +232,7 @@ int main(int argc, char *argv[]) {
             exit(1);
         }
 
-        //printf("Created thread successfully.\n");
+        printf("Created thread successfully.\n");
     }
 
     close(servSock); //close server socket when terminating
