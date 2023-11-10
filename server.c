@@ -56,7 +56,17 @@ uint64_t reverse_hash(uint8_t hash[SHA256_DIGEST_LENGTH], uint64_t start, uint64
     return 0;
 }
 
+int queueIsEmpty() {
+    for(int i = 0; i < 16; i++) {
+        if(priorityQueue[i] != NULL) {
+            return 0; // Found a non-empty queue
+        }
+    }
+    return 1; // All queues are empty
+}
+
 void enqueue(Request request){
+    
     int priority = request.priority-1;
     Node* node = (Node*)malloc(sizeof(Node));
     node -> data = request;
@@ -80,9 +90,10 @@ void enqueue(Request request){
 }
 
 Request dequeue(){
+    printf("wtf?\n");
     Request request;
     pthread_mutex_lock(&queueMutex);
-
+    printf("kommer något in här?\n");
     int i;
     for(i = 15; i >= 0; i--){
         if(priorityQueue[i] != NULL){
@@ -91,11 +102,13 @@ Request dequeue(){
     }
 
     if(i < 0){ // No requests in the queue
+        printf("no requests in queue\n");
         pthread_mutex_unlock(&queueMutex);  
         request.priority = 0;
         return request;
     }
 
+    printf("här?\n");
     Node* head = priorityQueue[i];
     request = head -> data;
     priorityQueue[i] = head -> next;
@@ -107,17 +120,17 @@ Request dequeue(){
 void *processTasks(void *threadArgs){
     while(1){
         printf("process task\n");
-        pthread_mutex_lock(&queueMutex);
         Request request;
-        request.priority = 0;
+        request.priority = 0;sa_sigaction
         while(request.priority == 0){
-            request = dequeue();
-            if(request.priority == 0){
+            pthread_mutex_lock(&queueMutex);
+            if(queueIsEmpty()){
                 pthread_cond_wait(&taskReady, &queueMutex);
             }
+            pthread_mutex_unlock(&queueMutex);
+            request = dequeue();
         }
         printf("HELLO?\n");
-        pthread_mutex_unlock(&queueMutex);
         uint64_t answer = reverse_hash(request.hash, request.start, request.end);
         answer = htobe64(answer);
         write(request.clntSock, &answer, sizeof(answer));
@@ -150,6 +163,7 @@ void *ThreadMain(void *threadArgs){
     request.priority = p;
     request.clntSock = clntSock;
     enqueue(request);
+    // pthread_mutex_unlock(&queueMutex);
     pthread_cond_signal(&taskReady);
     return NULL; //if we want to we can use the exit code to deliver a message to a parent
 }
