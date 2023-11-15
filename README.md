@@ -52,6 +52,14 @@ The results of the benchmarks for the different delay values can be seen below. 
 | 6000      | 100%                                | 100%                          |
 | 60000      | 100%                                | 100%                          |
 
+| Delay μs | Threadpooling + Priority Queue (avg. score) | Threadpooling + Priority Queue (best score) | Threadpooling + Priority Queue (worst score) | Threads + Priority Queue (avg. score) | Threads + Priority Queue (best score) | Threads + Priority Queue (worst score) |
+|----------|---------------------------------------------|---------------------------------------------|----------------------------------------------|---------------------------------------|--------------------------------------|---------------------------------------|
+| 400000   | 34790198                                    |                                             |                                              | 36063471                                |                                      |                                       |
+| 500000   | 30300986                                    |                                             |                                              | 36049598                                |                                      |                                       |
+| 600000   | 27153616                                    |                                             |                                              | 29967037                                |                                      |                                       |
+| 700000   | 19486033                                    |                                             |                                              | 19220121                                |                                      |                                       |
+| 800000   | 13947025                                    |                                             |                                              | 16367480                                |                                      |                                       |
+
 
 ## 4. Conclusion
 
