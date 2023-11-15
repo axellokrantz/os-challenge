@@ -5,6 +5,28 @@ The experiment which was conducted was to see if a thread pool could increase th
 
 ## Setup:
 
+# Experiment Details
+
+The experiment was performed with the built-in request generator where the client generates reverse hashing requests tailored to specific command line arguments. The generator takes 9 command line arguments as described below:
+
+- **Hostname**: This is the hostname or IP of the server. In this experiment, 'localhost' will be used since both the client and server are set up on the same computer.
+
+- **Port**: This is the port number of the server. The experiment will use port 5003.
+
+- **Seed**: This is the seed for the random number generator. The experiment will use the seed '5041', which is the initial seed used by 'run-client-final.sh'.
+
+- **Total**: This is the total number of reverse hashing requests to be generated. A higher number will yield a more precise score, however for benchmark purposes, the experiment will use a total of '100' reverse hashing requests.
+
+- **Start**: Hashes will be generated from input numbers that are greater or equal to start. The experiment will set it to 0 which randomizes 'start' for each request.
+
+- **Difficulty**: This is the difficulty of the generated hashes. The experiment will use 30000000, which is the same difficulty used by 'run-client-final.sh'.
+
+- **Rep**: This is the repetition probability percentage (%). Since this iteration of the program does not store any of the hash values, the percentage does not matter. For simplicity, 'rep' will be set to 20, which is the same number used by 'run-client-final.sh'.
+
+- **Delay**: This is the delay between requests in microseconds (usec). Varying the delay parameter will test how the two implementations behave under different levels of load. A lower delay will send requests at a higher rate and a higher delay will send requests at a lower rate. By observing how the system responds to different delay parameters, the performance of the two implementations can be evaluated. One might perform better under moderate loads but struggle under heavier traffic, while the other might handle high loads efficiently due to its optimized resource management. Therefore, in this experiment, the following delay parameters will be tested: 800000, 700000, 600000, 500000, and 400000 (usec).
+
+- **Lambda**: The priority level of each request is generated randomly. There are 16 priority levels, where 16 correspond to the highest priority and vice versa. In this experiment, lambda was set to 1.5, which is the same number used by 'run-client-final.sh'.
+
 ```
 $ ./client 192.168.101.10 5003 5041 100 0 30000000 20 800000 1.5
 ```
