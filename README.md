@@ -33,7 +33,7 @@ $ ./client 192.168.101.10 5003 5041 100 0 30000000 20 800000 1.5
 
 ## 3. Result
 
-| Delay μs | Threadpooling + Priority Queue (avg. score) | Threads + Priority Queue (avg. score) |
+| Delay μs | Threadpooling + Priority Queue (relyability) | Threads + Priority Queue (avg. score) |
 |--------------|--------------------------------|--------------------------|
 | 400000      |34790198                                | 46063471                          |
 | 500000      |30300986                                | 46049598                          |
@@ -41,13 +41,13 @@ $ ./client 192.168.101.10 5003 5041 100 0 30000000 20 800000 1.5
 | 700000      |19486033                                | 19220121                          |
 | 800000      |13947025                                | 16367480                          |
 
-| Delay μs | Threadpooling + Priority Queue (avg. score) | Threads + Priority Queue (avg. score) |
+| Delay μs | Threadpooling + Priority Queue (relyability) | Threads + Priority Queue (avg. score) |
 |--------------|--------------------------------|--------------------------|
-| 60      | 34790198                                | 46063471                          |
-| 600      | 30300986                                | 46049598                          |
-| 6000      | 27153616                                | 29967037                          |
-| 60000      | 19486033                                | 19220121                          |
-| 600000      | 13947025                                | 16367480                          |
+| 60      | 100%                                | 46063471                          |
+| 600      | 100%                                | 46049598                          |
+| 6000      | 100%                                | 29967037                          |
+| 60000      | 100%                                | 19220121                          |
+| 600000      | 100%                                | 16367480                          |
 
 
 ## 4. Conclusion
