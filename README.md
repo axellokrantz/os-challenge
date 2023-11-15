@@ -55,6 +55,11 @@ The results of the benchmarks for the different delay values can be seen below. 
 
 ## 4. Conclusion
 
+The comparison between the thread pool and traditional thread implementations revealed nuanced performance differences across varying delay values. In instances with moderate to high delays (400,000 to 800,000 μs), traditional threads consistently outperformed the thread pool, exhibiting lower average scores that indicated better performance under these conditions. This outcome implied that the overhead related to managing a thread pool outweighed its benefits in scenarios with increased loads.
+
+At extremely small delay values, the thread pool showcased superior reliability, maintaining a perfect 100% reliability from 6 μs to 60,000 μs. Meanwhile, the regular threads showed fluctuations in reliability, dropping notably to 72% at 6 μs.
+
+Ultimately, the research group opted against implementing the thread pool due to the insignificant performance difference between the two implementations. The observed ranges of scores, particularly where the thread pool's worst score was surpassed by at least one measurement of the traditional threads across all delay benchmarks, underscored the lack of significant justification for implementing the thread pool. The overlapping ranges suggested that the performance improvements offered by the thread pool were not consistently superior to those of the traditional threads. Therefore, the decision was made based on the marginal performance gains in favor of maintaining the existing traditional thread implementation.
 
 
 
