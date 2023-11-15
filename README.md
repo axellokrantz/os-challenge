@@ -25,8 +25,7 @@ The experiment was performed with the built-in request generator where the clien
 
 - **Lambda**: The priority level of each request is generated randomly. There are 16 priority levels, where 16 correspond to the highest priority and vice versa. In this experiment, lambda was set to 1.5, which is the same number used by 'run-client-final.sh'.
 
-The command line argument used for this experiment will be as follows (where the delay will vary from 400000 to 800000.
-
+The command line argument used for this experiment will be as follows (where the delay parameter will vary depending on the benchmark).
 ```
 $ ./client 192.168.101.10 5003 5041 100 0 30000000 20 800000 1.5
 ```
