@@ -41,7 +41,7 @@ $ ./client 192.168.101.10 5003 5041 100 0 30000000 20 800000 1.5
 | 700000      |19486033                                | 19220121                          |
 | 800000      |13947025                                | 16367480                          |
 
-| Delay μs | Threadpooling + Priority Queue (relyability) | Threads + Priority Queue (avg. score) |
+| Delay μs | Threadpooling + Priority Queue (relyability) | Threads + Priority Queue (relyability) |
 |--------------|--------------------------------|--------------------------|
 | 6      | 100%                                | 72%                          |
 | 60      | 100%                                | 91%                          |
