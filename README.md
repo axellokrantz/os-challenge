@@ -54,3 +54,18 @@ The results of the benchmarks for the different delay values can be seen below. 
 ## 4. Conclusion
 
 
+
+
+Number of threads. Why 17? Why not more? Better than normal implementation? Statistic difference (p-value critical interval etc)
+
+Comparison between normal thread implementation and thread pool.
+
+"The number of available threads is tuned to the computing resources available to the program1."
+
+start: Hashes will be generated from input numbers that are greater than or equal to start. If set to 0, the
+value of start will be randomised on each request. Must be positive integer.
+Kanske inte skulle haft 0?
+
+With a lower delay, you'll be sending requests at a higher rate, increasing the concurrency (multiple requests being processed simultaneously).
+
+When minimizing the MAXPENDING to 50, 25 and 10 threadpool managed to get 100 reliance and no timeouts, the same goes for the normal thread implementation.
