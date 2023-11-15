@@ -15,7 +15,7 @@ The experiment was performed with the built-in request generator where the clien
 
 - **Total**: This is the total number of reverse hashing requests to be generated. A higher number will yield a more precise score, however for benchmark purposes, the experiment will use a total of '100' reverse hashing requests.
 
-- **Start**: Hashes will be generated from input numbers that are greater or equal to start. The experiment will set it to 0 which randomizes 'start' for each request.
+- **Start**: Hashes will be generated from input numbers that are greater or equal to start. The experiment will be set to 0 which randomizes 'start' for each request.
 
 - **Difficulty**: This is the difficulty of the generated hashes. The experiment will use 30000000, which is the same difficulty used by 'run-client-final.sh'.
 
