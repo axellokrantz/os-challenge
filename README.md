@@ -33,7 +33,7 @@ $ ./client 192.168.101.10 5003 5041 100 0 30000000 20 800000 1.5
 
 ## 3. Result
 
-| Delay μs | Threadpooling + Priority Queue (avg.) | Threads + Priority Queue (avg.) |
+| Delay μs | Threadpooling + Priority Queue (avg. score) | Threads + Priority Queue (avg. score) |
 |--------------|--------------------------------|--------------------------|
 | 400,000      |34790198                                |                          |
 | 500,000      |                                |                          |
