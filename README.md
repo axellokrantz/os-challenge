@@ -1,4 +1,2 @@
-# os-challenge
-
 # Experiment Axel Månson Lokrantz s232081
-# Benchmark Thread pooling + Priority Queue vs Threads + Priority Queue
+# Benchmark Thread pooling and Priority Queue vs. Threads and Priority Queue
