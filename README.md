@@ -6,5 +6,5 @@ The experiment which was conducted was to see if a thread pool could increase th
 ## Setup:
 
 ```
-hej
+./client 192.168.101.10 5003 5041 100 0 30000000 20 800000 1.5
 ```
