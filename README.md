@@ -34,7 +34,7 @@ $ ./client 192.168.101.10 5003 5041 100 0 30000000 20 800000 1.5
 
 The results of the benchmarks for the different delay values can be seen below. For each delay value, 10 runs were conducted, and the average score was subsequently calculated.
 
-**Table 1.**
+**Table 1: Average score for different delay values.**
 | Delay μs | Threadpooling + Priority Queue (avg. score) | Threads + Priority Queue (avg. score) |
 |--------------|--------------------------------|--------------------------|
 | 400000      |34790198                                | 46063471                          |
@@ -43,7 +43,7 @@ The results of the benchmarks for the different delay values can be seen below. 
 | 700000      |19486033                                | 19220121                          |
 | 800000      |13947025                                | 16367480                          |
 
-**Table 2.**
+**Table 2: Relyability for extremely small delay values.**
 | Delay μs | Threadpooling + Priority Queue (relyability) | Threads + Priority Queue (relyability) |
 |--------------|--------------------------------|--------------------------|
 | 6      | 100%                                | 72%                          |
