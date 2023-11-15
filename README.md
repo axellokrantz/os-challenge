@@ -5,8 +5,6 @@ The experiment which was conducted was to see if a thread pool could increase th
 
 ## Setup:
 
-# Experiment Details
-
 The experiment was performed with the built-in request generator where the client generates reverse hashing requests tailored to specific command line arguments. The generator takes 9 command line arguments as described below:
 
 - **Hostname**: This is the hostname or IP of the server. In this experiment, 'localhost' will be used since both the client and server are set up on the same computer.
