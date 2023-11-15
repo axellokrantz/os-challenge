@@ -57,12 +57,8 @@ The results of the benchmarks for the different delay values can be seen below. 
 
 The comparison between the thread pool and the traditional thread implemention across various delay values reveal nuanced performance differences. Under moderate to high delays (400,000 to 800,000 μs), the threadpool outperformed the traditional threads, displaying lower average scores, which indicates better performance in these scenarios. This suggested that the advantages of a thread pool outweighed the disadvantages associated with the overhead of managing it. At small delay values, the thread pool was superior in terms of reliability maintaning 100% reliability from 6 μs to 60,000 μs. The reliability of the regular threads fluctuaded, dropping to 72% at 6 μs. 
 
+However, it is important to note at 
 
-
-
-The comparison between the thread pool and traditional thread implementations across various delay values revealed nuanced performance differences. Under moderate to high delays (400,000 to 800,000 μs), traditional threads consistently outperformed the thread pool, displaying lower average scores, indicating better performance in these scenarios. This indicated that the overhead associated with managing a thread pool outweighed its advantages under heavier loads. At small delay values (Table 2) the thread pool was superior, maintaining 100% reliability from 6 μs to 60,000 μs. The reliability of the regular threads fluctuated, dropping to as low as 72% at 6 μs.
-
-At extremely small delay values, the thread pool demonstrated superior reliability, maintaining perfect 100% reliability from 6 μs to 60,000 μs. Conversely, the reliability of the regular threads fluctuated, dropping notably to 72% at 6 μs.
 
 However, it's crucial to note a specific instance where the normal thread implementation notably outperformed the thread pool. At a delay of 700,000 μs, the traditional threads displayed superior performance compared to the thread pool, further emphasizing the varied performance outcomes under different delay settings.
 
