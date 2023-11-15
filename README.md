@@ -37,8 +37,8 @@ The results of the benchmarks for the different delay values can be seen below. 
 **Table 1: Average score for different delay values.**
 | Delay μs | Threadpooling + Priority Queue (avg. score) | Threads + Priority Queue (avg. score) |
 |--------------|--------------------------------|--------------------------|
-| 400000      |34790198                                | 46063471                          |
-| 500000      |30300986                                | 46049598                          |
+| 400000      |34790198                                | 36063471                          |
+| 500000      |30300986                                | 36049598                          |
 | 600000      |27153616                                | 29967037                          |
 | 700000      |19486033                                | 19220121                          |
 | 800000      |13947025                                | 16367480                          |
