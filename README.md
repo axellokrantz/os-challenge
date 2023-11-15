@@ -43,6 +43,7 @@ The results of the benchmarks for the different delay values can be seen below. 
 | 700000      |19486033                                | 19220121                          |
 | 800000      |13947025                                | 16367480                          |
 
+**Table 2.**
 | Delay μs | Threadpooling + Priority Queue (relyability) | Threads + Priority Queue (relyability) |
 |--------------|--------------------------------|--------------------------|
 | 6      | 100%                                | 72%                          |
