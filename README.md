@@ -33,7 +33,7 @@ $ ./client 192.168.101.10 5003 5041 100 0 30000000 20 800000 1.5
 
 ## 3. Result
 
-| Delay (usec) | Threadpooling + Priority Queue | Threads + Priority Queue |
+| Delay μs | Threadpooling + Priority Queue (avg.) | Threads + Priority Queue (avg.) |
 |--------------|--------------------------------|--------------------------|
 | 400,000      |                                |                          |
 | 500,000      |                                |                          |
