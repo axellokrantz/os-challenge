@@ -1,9 +1,9 @@
 # Axel Månson Lokrantz, s232081
-## Experiment: Thread Pooling and Priority Queue vs. Threads and Priority Queue
+## 1. Experiment
 
 The experiment which was conducted was to see if a thread pool could increase the performance of the program. The two branches which were compared were 'BRANCH 1' and 'BRANCH 2'. A thread pool is a model for achieving concurrent execution. It can hold multiple threads waiting for tasks to be allocated to them. By maintaining a pool, the model could potentially increase performance and avoid latency. Opposed to a regular thread implementation, a thread pool does not create and destroy a thread each time it handles a task. Instead a thread pool reuses previously created threads to execute current tasks to diminish the overhead associated with creating and destroying threads. Since the thread already exist when the request arrives, the delay introduced by thread creation is eliminated, which, in theory, should make the program more responsive.
 
-## Setup:
+## 2. Setup
 
 The experiment was performed with the built-in request generator where the client generates reverse hashing requests tailored to specific command line arguments. The generator takes 9 command line arguments as described below:
 
@@ -30,3 +30,6 @@ The command line argument used for this experiment will be as follows (where the
 ```
 $ ./client 192.168.101.10 5003 5041 100 0 30000000 20 800000 1.5
 ```
+
+## 3. Result
+## 4. Conclusion
