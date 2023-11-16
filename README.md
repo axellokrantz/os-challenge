@@ -37,7 +37,7 @@ The results of the benchmarks for the different delay values can be seen below. 
 **Table 1: Average score for moderate to high delay values.**
 | Delay μs | Threadpooling + Priority (avg. score) | Best score | Worst score | Threads + Priority (avg.score) | Best Score | Worst Score |
 |----------|---------------------------------------------|---------------------------------------------|---------------------------------------------|---------------------------------------------|---------------------------------------------|-------------------|
-| 400000   | 34790198                                    |                                             |                                              | 36063471                                |                                      |                                       |
+| 400000   | 34790198                                    |                                             |                                              | 36063471                                |                                      |33293945                                       |
 | 500000   | 30300986                                    |                                             |                                              | 36049598                                |                                      |                                       |
 | 600000   | 27153616                                    |                                             |                                              | 29967037                                |                                      |                                       |
 | 700000   | 19486033                                    |                                             |                                              | 19220121                                |                                      |                                       |
@@ -55,9 +55,7 @@ The results of the benchmarks for the different delay values can be seen below. 
 
 ## 4. Conclusion
 
-The comparison between the thread pool and the traditional thread implemention across various delay values reveal nuanced performance differences. Under moderate to high delays (400,000 to 800,000 μs), the threadpool outperformed the traditional threads, displaying lower average scores, which indicates better performance in these scenarios. This suggested that the advantages of a thread pool outweighed the disadvantages associated with the overhead of managing it. At small delay values, the thread pool was superior in terms of reliability maintaning 100% reliability from 6 μs to 60,000 μs. The reliability of the regular threads fluctuaded, dropping to 72% at 6 μs. 
-
-However, it is important to note at 
+The comparison between the thread pool and the traditional thread implemention across various delay values reveal nuanced performance differences. Under moderate to high delays (400,000 to 800,000 μs), the threadpool outperformed the traditional threads, displaying lower average scores, which indicates better performance in these scenarios. This suggested that the advantages of a thread pool outweighed the disadvantages associated with the overhead of managing it. At small delay values, the thread pool was superior in terms of reliability maintaning 100% reliability from 6 μs to 60,000 μs. The reliability of the regular threads fluctuaded, dropping to 72% at 6 μs. At a delay of 700,000 μs, the traditional threads displayed better performance compared to the thread pool. p
 
 
 However, it's crucial to note a specific instance where the normal thread implementation notably outperformed the thread pool. At a delay of 700,000 μs, the traditional threads displayed superior performance compared to the thread pool, further emphasizing the varied performance outcomes under different delay settings.
