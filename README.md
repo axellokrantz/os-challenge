@@ -34,7 +34,7 @@ $ ./client 192.168.101.10 5003 5041 100 0 30000000 20 800000 1.5
 
 The results of the benchmarks for the different delay values can be seen below. For each delay value, 10 runs were conducted and the best, average and worst scores were subsequently calculated.
 
-**Table 1: Average score for moderate to high delay values.**
+**Table 1: Average, best and worst scores for moderate to high delay values.**
 | Delay μs | Threadpooling + Priority (avg. score) | Best score | Worst score | Threads + Priority (avg.score) | Best Score | Worst Score |
 |----------|---------------------------------------------|---------------------------------------------|---------------------------------------------|---------------------------------------------|---------------------------------------------|-------------------|
 | 400000   | **34790198**                                    | 32293945                                             | 36223244                                              | 36063471                                | 34244711                                      | 40019967                                        |
