@@ -3,6 +3,16 @@
 
 The experiment which was conducted was to see if a thread pool could increase the performance of the program. The two branches which were compared are 'milestone_threads_priority' and 'milestone_threadpool_priority'. A thread pool is a model for achieving concurrent execution. It can hold multiple threads waiting for tasks to be allocated to them. By maintaining a pool, the model could potentially increase performance and avoid latency. Opposed to a regular thread implementation, a thread pool does not create and destroy a thread each time it handles a task. Instead a thread pool reuses previously created threads to execute current tasks to diminish the overhead associated with creating and destroying threads. Since the thread already exist when the request arrives, the delay introduced by thread creation is eliminated which, in theory, should make the program more responsive.
 
+The most notable changes in the code of the threadpool are:
+
+**Initialization:** The code initializes a pool of threads equal to the number of CPUs avaliable + 1 (```THREAD_POOL_SIZE```). 
+
+**processTask** function: Runs each thread in the thread pool. It enters an infinite loop where each thread waits for a task to be avaliable in the priority queue. When a task is available, the request is dequeued and the task is processed by the thread. After processing the task, the client socket is closed and the thread repeats the process. 
+
+**ThreadMain** function: Runs the main thread for each client connection and creates a Request struct with the data and the client socket and enqueues it in the priority queue. When a task is enqueued it then signals the condition variable to wake up a worked thread to process the task ```pthread_cond_signal(&taskReady);```.
+
+**dequeue:** function: Removes and return the task with the highest priority from the priority queue. To avoid race conditions the program locks the queue mutex, then checks each priority level from highest to lowest until it finds an entry. If the queue is empty, it returns a Request with priority 0. When the request has been deuqued from the priority queue it then unlocks the mutex to allow other threads to use the queue.
+
 ## 2. Setup
 
 The experiment was performed with the built-in request generator where the client generates reverse hashing requests tailored to specific command line arguments. The generator takes 9 command line arguments as described below:
