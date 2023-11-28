@@ -5,7 +5,7 @@ The experiment which was conducted was to see if a thread pool could increase th
 
 The most notable changes in the code of the threadpool are:
 
-**Initialization:** The code initializes a pool of threads equal to the number of CPUs avaliable + 1 (```THREAD_POOL_SIZE```). 
+**Initialization:** ```THREAD_POOL_SIZE```The code initializes a pool of threads equal to the number of CPUs avaliable + 1. 
 
 **processTask** function: Runs each thread in the thread pool. It enters an infinite loop where each thread waits for a task to be avaliable in the priority queue. When a task is available, the request is dequeued and the task is processed by the thread. After processing the task, the client socket is closed and the thread repeats the process. 
 
