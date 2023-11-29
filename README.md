@@ -15,7 +15,7 @@ The most notable changes in the code of the threadpool are:
 
 ## 2. Setup
 
-The experiment was performed with the built-in request generator where the client generates reverse hashing requests tailored to specific command line arguments. The generator takes 9 command line arguments as described below:
+The experiment was conducted through the built-in request generator where the client generates reverse hashing requests tailored to specific command line arguments. The generator takes 9 command line arguments as described below:
 
 - **Hostname**: This is the hostname or IP of the server. In this experiment 192.168.101.10 will be used which is the same ip address used by 'run-client-final.sh'.
 
