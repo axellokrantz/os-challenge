@@ -1,39 +1,39 @@
 # Axel Månson Lokrantz, s232081
 ## 1. Experiment: Thread pool
 
-The experiment which was conducted was to see if a thread pool could increase the performance of the program. The two branches which were compared are 'milestone_threads_priority' and 'milestone_threadpool_priority'. A thread pool is a model for achieving concurrent execution. It can hold multiple threads waiting for tasks to be allocated to them. By maintaining a pool, the model could potentially increase performance and avoid latency. Opposed to a regular thread implementation, a thread pool does not create and destroy a thread each time it handles a task. Instead a thread pool reuses previously created threads to execute current tasks to diminish the overhead associated with creating and destroying threads. Since the thread already exist when the request arrives, the delay introduced by thread creation is eliminated which, in theory, should make the program more responsive.
+The experiment conducted aimed to observe whether a thread pool could enhance program performance. The comparison involved two branches: "milestone_threads_priority" and "milestone_threadpool_priority". A thread pool enables concurrent execution by managing multiple threads waiting for task allocation, potentially boosting performance and reducing latency. Unlike regular thread implementations that create and destroy threads for each task, a thread pool reuses existing threads, minimizing the overhead associated with thread management. This reuse eliminates delays caused by thread creation, theoretically making the program more responsive.
 
 The most notable changes in the code of the threadpool are:
 
-**Initialization:** ```THREAD_POOL_SIZE``` The code initializes a pool of threads equal to the number of CPUs avaliable + 1. 
+**Initialization:** ```THREAD_POOL_SIZE``` The code initializes a pool of threads equal to the number of CPUs plus one. 
 
-**processTask** function: Runs each thread in the thread pool. It enters an infinite loop where each thread waits for a task to be avaliable in the priority queue. When a task is available, the request is dequeued and the task is processed by the thread. After processing the task, the client socket is closed and the thread repeats the process. 
+**processTask** function: Runs each thread in the thread pool. It enters an infinite loop where each thread waits for a task to be available in the priority queue. When a task is available, the request is dequeued and the task is processed by the thread. After processing the task, the client socket is closed and the thread repeats the process.
 
 **ThreadMain** function: Runs the main thread for each client connection and creates a Request struct with the data and the client socket and enqueues it in the priority queue. When a task is enqueued it then signals the condition variable to wake up a worked thread to process the task ```pthread_cond_signal(&taskReady);```.
 
-**dequeue:** function: Removes and return the task with the highest priority from the priority queue. To avoid race conditions the program locks the queue mutex, then checks each priority level from highest to lowest until it finds an entry. If the queue is empty, it returns a Request with priority 0. When the request has been deuqued from the priority queue it then unlocks the mutex to allow other threads to use the queue.
+**dequeue:** function: Removes and returns the highest priority task from the queue. To avoid race conditions, the program locks the queue mutex, checks each priority level, and if the queue is empty, it returns a Request with priority 0. After dequeuing, it unlocks the mutex, allowing other threads to use the queue.
 
 ## 2. Setup
 
-The experiment was conducted through the built-in request generator where the client generates reverse hashing requests tailored to specific command line arguments. The generator takes 9 command line arguments as described below:
+The experiment utilized a built-in request generator, customizing reverse hashing requests via command line arguments. The generator accepted nine arguments:
 
-- **Hostname**: This is the hostname or IP of the server. In this experiment 192.168.101.10 will be used which is the same ip address used by 'run-client-final.sh'.
+- **Hostname**: Hostname or IP of the server. In this experiment 192.168.101.10 will be used which is the same ip address used by 'run-client-final.sh'.
 
-- **Port**: This is the port number of the server. The experiment will use port 5003.
+- **Port**: Port number of the server. The experiment will use port 5003.
 
-- **Seed**: This is the seed for the random number generator. The experiment will use the seed '5041', which is the initial seed used by 'run-client-final.sh'.
+- **Seed**: Seed for the random number generator. The experiment will use the seed '5041', which is the initial seed used by 'run-client-final.sh'.
 
-- **Total**: This is the total number of reverse hashing requests to be generated. A higher number will yield a more precise score, however for benchmark purposes, the experiment will use a total of '100' reverse hashing requests.
+- **Total**: Total number of reverse hashing requests to be generated. A higher number will yield a more precise score, however for benchmark purposes, the experiment will use a total of '100' reverse hashing requests.
 
 - **Start**: Hashes will be generated from input numbers that are greater or equal to start. The experiment will be set to 0 which randomizes 'start' for each request.
 
-- **Difficulty**: This is the difficulty of the generated hashes. The experiment will use 30000000, which is the same difficulty used by 'run-client-final.sh'.
+- **Difficulty**: Difficulty of the generated hashes. The experiment will use 30000000, which is the same difficulty used by 'run-client-final.sh'.
 
-- **Rep**: This is the repetition probability percentage (%). Since this iteration of the program does not store any of the hash values, the percentage does not matter. For simplicity, 'rep' will be set to 20, which is the same number used by 'run-client-final.sh'.
+- **Rep**: Repetition probability percentage (%). Since this iteration of the program does not store any of the hash values, the percentage does not matter. For simplicity, 'rep' will be set to 20, which is the same number used by 'run-client-final.sh'.
 
-- **Delay**: This is the delay between requests in microseconds (μs). Varying the delay parameter will test how the two implementations behave under different levels of load. A lower delay will send requests at a higher rate and a higher delay will send requests at a lower rate. By observing how the system responds to different delay parameters, the performance of the two implementations can be evaluated. One might perform better under moderate loads but struggle under heavier traffic, while the other might handle high loads efficiently due to its optimized resource management. Therefore, in this experiment, the following delay parameters will be benchmarked: 800000, 700000, 600000, 500000, and 400000 (usec). Additionally, both implementations will be benchmarked with extremely small delay values ranging from 60000 to 6.
+- **Delay**: Delay between requests in microseconds (μs). Varying the delay parameter will test how the two implementations behave under different levels of load. A lower delay will send requests at a higher rate and a higher delay will send requests at a lower rate. By observing how the system responds to different delay parameters, the performance of the two implementations can be evaluated. One might perform better under moderate loads but struggle under heavier traffic, while the other might handle high loads efficiently due to its optimized resource management. Therefore, in this experiment, the following delay parameters will be benchmarked: 800000, 700000, 600000, 500000, and 400000 (usec). Additionally, both implementations will be benchmarked with extremely small delay values ranging from 60000 to 6.
 
-- **Lambda**: The priority level of each request is generated randomly. There are 16 priority levels, where 16 correspond to the highest priority and vice versa. In this experiment, lambda was set to 1.5, which is the same number used by 'run-client-final.sh'.
+- **Lambda**: Åriority level of each request is generated randomly. There are 16 priority levels, where 16 correspond to the highest priority and vice versa. In this experiment, lambda was set to 1.5, which is the same number used by 'run-client-final.sh'.
 
 The command line argument used for this experiment will be as follows (where the delay parameter will vary depending on the benchmark).
 ```
