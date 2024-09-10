@@ -33,7 +33,7 @@ The experiment utilized a built-in request generator, customizing reverse hashin
 
 - **Delay**: Delay between requests in microseconds (μs). Varying the delay parameter will test how the two implementations behave under different levels of load. A lower delay will send requests at a higher rate and a higher delay will send requests at a lower rate. By observing how the system responds to different delay parameters, the performance of the two implementations can be evaluated. One might perform better under moderate loads but struggle under heavier traffic, while the other might handle high loads efficiently due to its optimized resource management. Therefore, in this experiment, the following delay parameters will be benchmarked: 800000, 700000, 600000, 500000, and 400000 (μs). Additionally, both implementations will be benchmarked with extremely small delay values ranging from 60000 to 6.
 
-- **Lambda**: Åriority level of each request is generated randomly. There are 16 priority levels, where 16 correspond to the highest priority and vice versa. In this experiment, lambda was set to 1.5, which is the same number used by 'run-client-final.sh'.
+- **Lambda**: Priority level of each request is generated randomly. There are 16 priority levels, where 16 correspond to the highest priority and vice versa. In this experiment, lambda was set to 1.5, which is the same number used by 'run-client-final.sh'.
 
 The command line argument used for this experiment will be as follows (where the delay parameter will vary depending on the benchmark).
 ```
